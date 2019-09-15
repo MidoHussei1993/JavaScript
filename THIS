@@ -1,0 +1,31 @@
+THIS :
+refrences to the object that is excuting the current function
+
+
+this
+method -> object
+function ->(window : in browser - global : in node) 
+============================================================
+function
+var a = 122.35188
+a.toLocaleString('ar-eg')
+"١٢٢٫٣٥٢"
+
+
+-----
+Number.prototype : the parent of all Number
+------------------------------
+hasOwnProperty : to cheack if object has spicifec property or not
+Number.prototype.hasOwnProperty('isEqaul')
+
+
+-------
+to convert number to binary
+a= 1222
+1222
+a.toString(2) /// this is it
+"10011000110"
+
+a.toString(16)
+"4c6"
+
