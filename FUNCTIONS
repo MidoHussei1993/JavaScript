@@ -1,0 +1,29 @@
+Executing a function is called invoking, calling, or applying
+console.table(object)
+this is to present object in table in console
+=================
+console.trace('say any thing')
+this is used to trace code to know were this function is call and where it define
+==================
+spread operator ...
+
+var obj1={name:'mido',age:22}
+var obj2={lastname:'ali',salary:5500}
+
+let all={...obj1,...obj2}
+let all={...obj1,hp:50}
+
+use it like array.push
+arr=[...arr,'ali','mido']
+use it like shift
+arr=['ali','mido',...arr]
+
+=========================
+sum all array values
+var total = numarr.reduce((acc,cur)=> acc + cur)
+
+add value to all elemtent in array 
+tax =numarr.map(v => v + 1) ---------------------> return array
+
+get value depend on condition
+const highvalues = numarr.filter(v => v > 100)
