@@ -1,0 +1,182 @@
+let age = prompt('How old are you?', 100); // the socend parameter to set defulet value
+alert(`You are ${age} years old!`); // You are 100 years old!
+
+let isBoss = confirm("Are you the boss?"); //return true or false
+alert( isBoss ); // true if OK is pressed
+
+
+let currentUser = null;
+let defaultUser = "John";
+let name = currentUser || defaultUser || "unnamed";
+alert( name ); // selects "John" – the first truthy value
+// null or undefined are false will take anther value
+//عكس
+// if the first operand is truthy,
+// AND returns the second operand:
+alert( 1 && 0 ); // 0
+alert( 1 && 5 ); // 5
+// if the first operand is falsy,
+// AND returns it. The second operand is ignored
+alert( null && 5 ); // null
+alert( 0 && "no matter what" ); // 0
+//this will take last value if it false
+======================
+function
+Default values
+function showMessage(from, text = "no text given") {
+alert( from + ": " + text );
+}
+function showMessage(from, text = anotherFunction()) {
+// anotherFunction() only executed if no text given
+// its result becomes the value of text
+}
+function showMessage(from, text) {
+// if text is falsy then text gets the "default" value
+text = text || 'no text given';
+...
+}
+
+
+ A function with an empty return or without it returns undefined
+If a function does not return a value, it is the same as if it returns undefined :
+unction doNothing() { /* empty */ }
+alert( doNothing() === undefined ); // true
+function doNothing() {
+return;
+}
+alert( doNothing() === undefined ); // true
+
+ One function – one action
+A function should do exactly what is suggested by its name, no more.
+
+// Function Declaration
+function sum(a, b) {
+return a + b;
+}
+// Function Expression
+let sum = function(a, b) {
+return a + b;
+};
+
+A Function Expression is created when the execution reaches it and is usable only from
+that moment.
+Once the execution flow passes to the right side of the assignment let sum = function…
+– here we go, the function is created and can be used (assigned, called, etc. ) from now on.
+Function Declarations are different.
+A Function Declaration can be called earlier than it is defined.
+For example, a global Function Declaration is visible in the whole script, no matter where it is.
+
+sayHi("John"); // Hello, John
+function sayHi(name) {
+alert( `Hello, ${name}` );
+}
+
+
+
+sayHi("John"); // error!
+let sayHi = function(name) { // (*) no magic any more
+alert( `Hello, ${name}` );
+};
+Function Expressions are created when the execution reaches them. That would happen only in
+the line (*) . Too late.
+
+
+arrow function
+let sum = (a,b)=> a + b ;
+
+
+
+let age = prompt("What is your age?", 18);
+let welcome = (age < 18) ?
+() => alert('Hello') :
+() => alert("Greetings!");
+welcome(); // ok now
+
+* @param {number} x The number to raise.
+* @param {number} n The power, must be a natural number.
+* @return {number} x raised to the n-th power.
+*/
+function pow(x, n) {
+...
+
+=====================
+OBJECT:
+An empty object (“empty cabinet”) can be created using one of two syntaxes:
+let user = new Object(); // "object constructor" syntax
+let user = {}; // "object literal" syntax
+ let fruit = prompt("Which fruit to buy?", "apple");
+let bag = {
+[fruit]: 5, // the name of the property is taken from the variable fruit
+};
+alert( bag.apple ); // 5 if fruit="apple"
+
+let user = {};
+alert( user.noSuchProperty === undefined ); // true means "no such property"
+
+There also exists a special operator "in" to check for the existence of a property.
+The syntax is:
+let user = { name: "John", age: 30 };
+alert( "age" in user ); // true, user.age exists
+alert( "blabla" in user ); // false, user.blabla doesn't exist
+
+for (let key in user) {
+// keys
+alert( key ); // name, age, isAdmin
+// values for the keys
+alert( user[key] ); // John, 30, true
+}
+
+A variable stores not the object itself, but its “address in memory”, in other words “a
+reference” to it.
+let user = { name: "John" };
+let admin = user; // copy the reference
+Now we have two variables, each one with the reference to the same object:
+
+const user = {
+name: "John"
+};
+user.age = 25; // (*)
+alert(user.age); // 25
+
+const user = {
+name: "John"
+};
+// Error (can't reassign user)
+user = {
+name: "Pete"
+};
+
+let user = { name: "John" };
+let permissions1 = { canView: true };
+let permissions2 = { canEdit: true };
+// copies all properties from permissions1 and permissions2 into user
+Object.assign(user, permissions1, permissions2);
+// now user = { name: "John", canView: true, canEdit: true }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
