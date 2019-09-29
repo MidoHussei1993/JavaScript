@@ -222,6 +222,159 @@ let admin = user;
 user = null; // overwrite to make things obvious
 admin.sayHi(); // Whoops! inside sayHi(), the old name is used! error!
 
+======================
+New keyword 
+function User(name) { // this is method act like constructor
+this.name = name;
+this.isAdmin = false;
+}
+let user = new User("Jack");
+alert(user.name); // Jack
+alert(user.isAdmin); // false
+
+is equale
+
+function User(name) {
+// this = {}; (implicitly)
+// add properties to this
+this.name = name;
+this.isAdmin = false;
+// return this; (implicitly)
+}
+=============================
+let user = new function() {
+this.name = "John";
+this.isAdmin = false;
+// ...other code for user creation
+// maybe complex logic and statements
+// local variables etc
+};
+The constructor can’t be called again, because it is not saved anywhere, just created and
+called. So this trick aims to encapsulate the code that constructs the single object, without
+future reuse.
+// this is like static class
+
+----
+مهم جدااااااااااااااااااا
+Advanced stuff
+The syntax from this section is rarely used, skip it unless you want to know everything.
+Inside a function, we can check whether it was called with new or without it, using a special
+new.target property.
+It is empty for regular calls and equals the function if called with new :
+function User() {
+alert(new.target);
+}
+// without "new":
+User(); // undefined
+// with "new":
+new User(); // function User { ... }
+
+
+
+
+function User(name) {
+if (!new.target) { // if you run me without new
+return new User(name); // ...I will add new for you
+  }
+this.name = name;
+}
+let john = User("John"); //
+alert(john.name); // John
+
+----------------------
+function BigUser() {
+this.name = "John";
+return { name: "Godzilla" }; // <-- returns an object
+}
+alert( new BigUser().name ); // Godzilla, got that object ^^
+
+And here’s an example with an empty return (or we could place a primitive after it, doesn’t
+matter):
+function SmallUser() {
+this.name = "John";
+return; // finishes the execution, returns this
+// ...
+}
+alert( new SmallUser().name ); // John
+
+
+===========
+By the way, we can omit parentheses after new , if it has no arguments:
+let user = new User; // <-- no parentheses
+// same as
+let user = new User();
+============================
+Methods in constructor
+Using constructor functions to create objects gives a great deal of flexibility. The constructor
+function may have parameters that define how to construct the object, and what to put in it.
+Of course, we can add to this not only properties, but methods as well.
+For instance, new User(name) below creates an object with the given name and the
+method sayHi :
+function User(name) {
+this.name = name;
+this.sayHi = function() {
+alert( "My name is: " + this.name );
+};
+}
+let john = new User("John");
+john.sayHi(); // My name is: John
+/*
+john = {
+name: "John",
+sayHi: function() { ... }
+}
+*/
+
+Two functions – one object
+let obj = {};
+function A() { return obj; }
+function B() { return obj; }
+alert( new A() == new B() ); // true
+
+
+==============
+let str = "Hello";
+str.test = 5; // (*)
+alert(str.test); undifined
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
