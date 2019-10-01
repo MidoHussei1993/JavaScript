@@ -58,7 +58,7 @@ let sum = function(a, b) {
 return a + b;
 };
 
-A Function Expression is created when the execution reaches it and is usable only from
+#A Function Expression is created when the execution reaches it and is usable only from
 that moment.
 Once the execution flow passes to the right side of the assignment let sum = function…
 – here we go, the function is created and can be used (assigned, called, etc. ) from now on.
@@ -77,7 +77,7 @@ sayHi("John"); // error!
 let sayHi = function(name) { // (*) no magic any more
 alert( `Hello, ${name}` );
 };
-Function Expressions are created when the execution reaches them. That would happen only in
+-Function Expressions are created when the execution reaches them. That would happen only in
 the line (*) . Too late.
 
 
@@ -100,8 +100,8 @@ function pow(x, n) {
 ...
 
 =====================
-OBJECT:
-An empty object (“empty cabinet”) can be created using one of two syntaxes:
+#OBJECT:
+-An empty object (“empty cabinet”) can be created using one of two syntaxes:
 let user = new Object(); // "object constructor" syntax
 let user = {}; // "object literal" syntax
  let fruit = prompt("Which fruit to buy?", "apple");
