@@ -1,5 +1,6 @@
-let age = prompt('How old are you?', 100); // the socend parameter to set defulet value
-alert(`You are ${age} years old!`); // You are 100 years old!
+let age = prompt('How old are you?', 100); 
+- the socend parameter to set defulet value
+alert(`You are ${age} years old!`); - You are 100 years old!
 
 let isBoss = confirm("Are you the boss?"); //return true or false
 alert( isBoss ); // true if OK is pressed
