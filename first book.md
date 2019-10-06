@@ -1,140 +1,840 @@
-Skip to content
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@MidoHussei1993 
-Learn Git and GitHub without any code!
-Using the Hello World guide, you’ll start a branch, write comments, and open a pull request.
-
-
-1
-00MidoHussei1993/JavaScript
- Code Issues 0 Pull requests 0 Projects 0 Wiki Security Insights Settings
-JavaScript
-/
-first book
- 
-
-1
 let age = prompt('How old are you?', 100); // the socend parameter to set defulet value
-2
 alert(`You are ${age} years old!`); // You are 100 years old!
-3
-​
-4
+
 let isBoss = confirm("Are you the boss?"); //return true or false
-5
 alert( isBoss ); // true if OK is pressed
-6
-​
-7
-​
-8
+
+
 let currentUser = null;
-9
 let defaultUser = "John";
-10
 let name = currentUser || defaultUser || "unnamed";
-11
 alert( name ); // selects "John" – the first truthy value
-12
 // null or undefined are false will take anther value
-13
 //عكس
-14
 // if the first operand is truthy,
-15
 // AND returns the second operand:
-16
 alert( 1 && 0 ); // 0
-17
 alert( 1 && 5 ); // 5
-18
 // if the first operand is falsy,
-19
 // AND returns it. The second operand is ignored
-20
 alert( null && 5 ); // null
-21
 alert( 0 && "no matter what" ); // 0
-22
 //this will take last value if it false
-23
 ======================
-24
 function
-25
 Default values
-26
 function showMessage(from, text = "no text given") {
-27
 alert( from + ": " + text );
-28
 }
-29
 function showMessage(from, text = anotherFunction()) {
-30
 // anotherFunction() only executed if no text given
-31
 // its result becomes the value of text
-32
 }
-33
 function showMessage(from, text) {
-34
 // if text is falsy then text gets the "default" value
-35
 text = text || 'no text given';
-36
 ...
-37
 }
-38
-​
-39
-​
-40
+
+
  A function with an empty return or without it returns undefined
-41
 If a function does not return a value, it is the same as if it returns undefined :
-42
 unction doNothing() { /* empty */ }
-43
 alert( doNothing() === undefined ); // true
-44
 function doNothing() {
-45
 return;
-46
 }
-47
 alert( doNothing() === undefined ); // true
-48
-​
-49
+
  One function – one action
-@MidoHussei1993
-Commit changes
-Commit summary
-Update first book
-Optional extended description
-Add an optional extended description…
- Commit directly to the master branch.
- Create a new branch for this commit and start a pull request. Learn more about pull requests.
- 
-© 2019 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Help
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
+A function should do exactly what is suggested by its name, no more.
+
+// Function Declaration
+function sum(a, b) {
+return a + b;
+}
+// Function Expression
+let sum = function(a, b) {
+return a + b;
+};
+
+#A Function Expression is created when the execution reaches it and is usable only from
+that moment.
+Once the execution flow passes to the right side of the assignment let sum = function…
+– here we go, the function is created and can be used (assigned, called, etc. ) from now on.
+Function Declarations are different.
+A Function Declaration can be called earlier than it is defined.
+For example, a global Function Declaration is visible in the whole script, no matter where it is.
+
+sayHi("John"); // Hello, John
+function sayHi(name) {
+alert( `Hello, ${name}` );
+}
+
+
+
+sayHi("John"); // error!
+let sayHi = function(name) { // (*) no magic any more
+alert( `Hello, ${name}` );
+};
+-Function Expressions are created when the execution reaches them. That would happen only in
+the line (*) . Too late.
+
+
+arrow function
+let sum = (a,b)=> a + b ;
+
+
+
+let age = prompt("What is your age?", 18);
+let welcome = (age < 18) ?
+() => alert('Hello') :
+() => alert("Greetings!");
+welcome(); // ok now
+
+* @param {number} x The number to raise.
+* @param {number} n The power, must be a natural number.
+* @return {number} x raised to the n-th power.
+*/
+function pow(x, n) {
+...
+
+=====================
+#OBJECT:
+-An empty object (“empty cabinet”) can be created using one of two syntaxes:
+let user = new Object(); // "object constructor" syntax
+let user = {}; // "object literal" syntax
+ let fruit = prompt("Which fruit to buy?", "apple");
+let bag = {
+[fruit]: 5, // the name of the property is taken from the variable fruit
+};
+alert( bag.apple ); // 5 if fruit="apple"
+
+let user = {};
+alert( user.noSuchProperty === undefined ); // true means "no such property"
+
+There also exists a special operator "in" to check for the existence of a property.
+The syntax is:
+let user = { name: "John", age: 30 };
+alert( "age" in user ); // true, user.age exists
+alert( "blabla" in user ); // false, user.blabla doesn't exist
+
+for (let key in user) {
+// keys
+alert( key ); // name, age, isAdmin
+// values for the keys
+alert( user[key] ); // John, 30, true
+}
+
+A variable stores not the object itself, but its “address in memory”, in other words “a
+reference” to it.
+let user = { name: "John" };
+let admin = user; // copy the reference
+Now we have two variables, each one with the reference to the same object:
+
+const user = {
+name: "John"
+};
+user.age = 25; // (*)
+alert(user.age); // 25
+
+const user = {
+name: "John"
+};
+// Error (can't reassign user)
+user = {
+name: "Pete"
+};
+
+let user = { name: "John" };
+let permissions1 = { canView: true };
+let permissions2 = { canEdit: true };
+// copies all properties from permissions1 and permissions2 into user
+Object.assign(user, permissions1, permissions2);
+// now user = { name: "John", canView: true, canEdit: true }
+
+=============================
+garbage collector
+There’s a base set of inherently reachable values, that cannot be deleted for obvious
+reasons.
+For instance:
+Local variables and parameters of the current function.
+Variables and parameters for other functions on the current chain of nested calls.
+Global variables.
+(there are some other, internal ones as well)
+============================================
+Symbols are guaranteed to be unique. Even if we create many symbols with the same
+description, they are different values. The description is just a label that doesn’t affect anything.
+For instance, here are two symbols with the same description – they are not equal:
+let id1 = Symbol("id");
+let id2 = Symbol("id");
+
+id1 == id2 => false
+
+let user = { name: "John" };
+let id = Symbol("id");
+user[id] = "ID Value";
+alert( user[id] ); // we can access the data using the symbol as the key
+
+golbal symbol
+// read from the global registry
+let id = Symbol.for("id"); // if the symbol did not exist, it is created
+// read it again (maybe from another part of the code)
+let idAgain = Symbol.for("id");
+// the same symbol
+alert( id === idAgain ); // true
+
+
+Symbol.keyFor
+For global symbols, not only Symbol.for(key) returns a symbol by name, but there’s a
+reverse call: Symbol.keyFor(sym) , that does the reverse: returns a name by a global
+symbol.
+let sym = Symbol.for("name");
+let sym2 = Symbol.for("id");
+// get name from symbol
+alert( Symbol.keyFor(sym) ); // name
+alert( Symbol.keyFor(sym2) ); // id
+====================
+THIS in method: 
+It’s common that an object method needs to access the information stored in the object to do its
+job.
+For instance, the code inside user.sayHi() may need the name of the user .
+To access the object, a method can use the this keyword.
+The value of this is the object “before dot”, the one used to call the method.
+For instance:
+let user = {
+name: "John",
+age: 30,
+sayHi() {
+alert(this.name);
+}
+};
+user.sayHi();
+
+let user = {
+name: "John",
+age: 30,
+sayHi() {
+alert( user.name ); // leads to an error
+}
+};
+let admin = user;
+user = null; // overwrite to make things obvious
+admin.sayHi(); // Whoops! inside sayHi(), the old name is used! error!
+
+======================
+New keyword 
+function User(name) { // this is method act like constructor
+this.name = name;
+this.isAdmin = false;
+}
+let user = new User("Jack");
+alert(user.name); // Jack
+alert(user.isAdmin); // false
+
+is equale
+
+function User(name) {
+// this = {}; (implicitly)
+// add properties to this
+this.name = name;
+this.isAdmin = false;
+// return this; (implicitly)
+}
+=============================
+let user = new function() {
+this.name = "John";
+this.isAdmin = false;
+// ...other code for user creation
+// maybe complex logic and statements
+// local variables etc
+};
+The constructor can’t be called again, because it is not saved anywhere, just created and
+called. So this trick aims to encapsulate the code that constructs the single object, without
+future reuse.
+// this is like static class
+
+----
+مهم جدااااااااااااااااااا
+Advanced stuff
+The syntax from this section is rarely used, skip it unless you want to know everything.
+Inside a function, we can check whether it was called with new or without it, using a special
+new.target property.
+It is empty for regular calls and equals the function if called with new :
+function User() {
+alert(new.target);
+}
+// without "new":
+User(); // undefined
+// with "new":
+new User(); // function User { ... }
+
+
+
+
+function User(name) {
+if (!new.target) { // if you run me without new
+return new User(name); // ...I will add new for you
+  }
+this.name = name;
+}
+let john = User("John"); //
+alert(john.name); // John
+
+----------------------
+function BigUser() {
+this.name = "John";
+return { name: "Godzilla" }; // <-- returns an object
+}
+alert( new BigUser().name ); // Godzilla, got that object ^^
+
+And here’s an example with an empty return (or we could place a primitive after it, doesn’t
+matter):
+function SmallUser() {
+this.name = "John";
+return; // finishes the execution, returns this
+// ...
+}
+alert( new SmallUser().name ); // John
+
+
+===========
+By the way, we can omit parentheses after new , if it has no arguments:
+let user = new User; // <-- no parentheses
+// same as
+let user = new User();
+============================
+Methods in constructor
+Using constructor functions to create objects gives a great deal of flexibility. The constructor
+function may have parameters that define how to construct the object, and what to put in it.
+Of course, we can add to this not only properties, but methods as well.
+For instance, new User(name) below creates an object with the given name and the
+method sayHi :
+function User(name) {
+this.name = name;
+this.sayHi = function() {
+alert( "My name is: " + this.name );
+};
+}
+let john = new User("John");
+john.sayHi(); // My name is: John
+/*
+john = {
+name: "John",
+sayHi: function() { ... }
+}
+*/
+
+Two functions – one object
+let obj = {};
+function A() { return obj; }
+function B() { return obj; }
+alert( new A() == new B() ); // true
+
+
+==============
+let str = "Hello";
+str.test = 5; // (*)
+alert(str.test); undifined
+
+==========================
+# A word about “length”
+> The length property automatically updates when we modify the array. To be precise, it is
+> actually not the count of values in the array, but the greatest numeric index plus one.
+> For instance, a single element with a large index gives a big length:
+let fruits = [];
+fruits[123] = "Apple";
+alert( fruits.length ); // 124
+
+--
+let arr = [1, 2, 3, 4, 5];
+arr.length = 2; // truncate to 2 elements
+alert( arr ); // [1, 2]
+arr.length = 5; // return length back
+alert( arr[3] ); // undefined: the values do not return
+
+### There is one more syntax to create an array:
+>let arr = new Array("Apple", "Pear", "etc");
+
+let arr = new Array(2); // will it create an array of [2] ?
+alert( arr[0] ); // undefined! no elements.
+alert( arr.length ); // length 2
+
+> Arrays have their own implementation of toString method that returns a comma-separated
+> list of elements.
+let arr = [1, 2, 3];
+alert( arr ); // 1,2,3
+alert( String(arr) === '1,2,3' ); // true
+
+===============
+let fruits = ["Apples", "Pear", "Orange"];
+// push a new value into the "copy"
+let shoppingCart = fruits;
+shoppingCart.push("Banana");
+// what's in fruits?
+alert( fruits.length ); // 4
+
+> That’s because arrays are objects. So both shoppingCart and fruits are the
+> references to the same array.
+====================================================
+* arr.push(...items) – adds items to the end,
+* arr.pop() – extracts an item from the end,
+* arr.shift() – extracts an item from the beginning,
+* arr.unshift(...items) – adds items to the beginning.
+* splice
+> How to delete an element from the array
+* slice
+> The method arr.slice  is much simpler than similar-looking arr.splice
+* concat
+> The method arr.concat  joins the array with other arrays and/or items. arr.concat(arg1, arg2...)
+
+## Searching in array
+> These are methods to search for something in an array.
+     ## indexOf/lastIndexOf and includes
+> The methods arr.indexOf  , arr.lastIndexOf  and arr.includes  have the same syntax and
+> do essentially the same as their string counterparts, but operate on items instead of characters:
+> arr.indexOf(item, from) – looks for item starting from index from , and returns
+> the index where it was found, otherwise -1 .
+> arr.lastIndexOf(item, from) – same, but looks for from right to left.
+> arr.includes(item, from) – looks for item starting from index from , returns
+> true if foun
+
+* filter
+> The find method looks for a single (first) element that makes the function return true .
+> If there may be many, we can use arr.filter(fn)  .
+> The syntax is similar to find , but filter continues to iterate for all array elements even if true
+> is already returned:
+
+let users = [
+{id: 1, name: "John"},
+{id: 2, name: "Pete"},
+{id: 3, name: "Mary"}
+];
+
+returns array of the first two users
+let someUsers = users.filter(item => item.id < 3);
+* arr.sort( (a, b) => a - b );
+* reverse
+* split and join
+
+
+* reduce/reduceRight
+let value = arr.reduce(function(previousValue, item, index, array) {
+// ...
+}, initial);
+
+The function is applied to the elements. You may notice the familiar arguments, starting from the
+2nd:
+item – is the current array item.
+index – is its position.
+array – is the array.
+So far, like forEach/map . But there’s one more argument:
+previousValue – is the result of the previous function call, initial for the first call
+
+
+==============
+# A cheat sheet of array methods:
+## To add/remove elements:
+push(...items) – adds items to the end,
+pop() – extracts an item from the end,
+shift() – extracts an item from the beginning,
+unshift(...items) – adds items to the beginning.
+splice(pos, deleteCount, ...items) – at index pos delete deleteCount
+elements and insert items .
+slice(start, end) – creates a new array, copies elements from position start till
+end (not inclusive) into it.
+concat(...items) – returns a new array: copies all members of the current one and
+adds items to it. If any of items is an array, then its elements are taken.
+To search among elements:
+indexOf/lastIndexOf(item, pos) – look for item starting from position pos ,
+return the index or -1 if not found.
+includes(value) – returns true if the array has value , otherwise false .
+find/filter(func) – filter elements through the function, return first/all values that
+make it return true .
+findIndex is like find , but returns the index instead of a value.
+To iterate over elements:
+forEach(func) – calls func for every element, does not return anything.
+To transform the array:
+map(func) – creates a new array from results of calling func for every element.
+sort(func) – sorts the array in-place, then returns it.
+reverse() – reverses the array in-place, then returns it.
+split/join – convert a string to array and back.
+reduce(func, initial) – calculate a single value over the array by calling func
+for each element and passing an intermediate result between the calls.
+Additionally:
+Array.isArray(arr) checks arr for being an array.
+Please note that methods sort , reverse and splice modify the array itself.
+These methods are the most used ones, they cover 99% of use cases. But there are few
+others:
+arr.some(fn)  /arr.every(fn)  checks the array.
+The function fn is called on each element of the array similar to map . If any/all results are
+true , returns true , otherwise false .
+Summary
+●
+●
+arr.fill(value, start, end)  – fills the array with repeating value from index start to
+end .
+arr.copyWithin(target, start, end)  – copies its elements from position start till position
+end into itself, at position target (overwrites existing).
+====================================================================
+# Object.keys, values, entries
+* Object.keys(obj)  – returns an array of keys.
+* Object.values(obj)  – returns an array of values.
+* Object.entries(obj)  – returns an array of [key, value] pairs.
+
+let user = {
+name: "John",
+age: 30 }
+
+Object.keys(user) = ["name", "age"]
+Object.values(user) = ["John", 30]
+Object.entries(user) = [ ["name","John"], ["age",30] ]
+
+
+---
+let prices = Object.fromEntries([
+['banana', 1],
+['orange', 2],
+['meat', 4]
+]);
+// now prices = { banana: 1, orange: 2, meat: 4 }
+alert(prices.orange); // 2
+
+let prices = {
+banana: 1,
+orange: 2,
+meat: 4,
+};
+let doublePrices = {};
+for(let [product, price] of Object.entries(prices)) {
+doublePrices[product] = price * 2;
+}
+alert(doublePrices.meat); // 8
+
+let prices = {
+banana: 1,
+orange: 2,
+meat: 4,
+};
+let doublePrices = Object.fromEntries(
+// convert to array, map, and then fromEntries gives back the object
+Object.entries(prices).map(([key, value]) => [key, value * 2])
+);
+alert(doublePrices.meat); // 8
+
+
+# Destructurin :
+> It’s called “destructuring assignment,” because it “destructurizes” by copying items into
+> variables. But the array itself is not modified.
+// second element is not needed
+let [firstName, , title] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
+alert( title ); // Consul
+
+# The rest ‘…’
+> If we want not just to get first values, but also to gather all that follows – we can add one more
+> parameter that gets “the rest” using three dots "..." :
+let [name1, name2, ...rest] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
+alert(name1); // Julius
+alert(name2); // Caesar
+// Note that type of `rest` is Array.
+alert(rest[0]); // Consul
+alert(rest[1]); // of the Roman Republic
+alert(rest.length); // 2
+
+# Default values
+> If there are fewer values in the array than variables in the assignment, there will be no error.
+> Absent values are considered undefined:
+let [firstName, surname] = [];
+alert(firstName); // undefined
+alert(surname); // undefined
+// default values
+let [name = "Guest", surname = "Anonymous"] = ["Julius"];
+alert(name); // Julius (from array)
+alert(surname); // Anonymous (default used)
+
+# Object destructuring
+> The destructuring assignment also works with objects
+
+let options = {
+title: "Menu",
+width: 100,
+height: 200
+};
+let {title, width, height} = options;
+alert(title); // Menu
+alert(width); // 100
+alert(height); // 200
+
+
+> If we want to assign a property to a variable with another name, for instance,
+> options.width to go into the variable named w , then we can set it using a colon:
+let options = {
+title: "Menu",
+width: 100,
+height: 200
+};
+// { sourceProperty: targetVariable }
+let {width: w, height: h, title} = options;
+// width -> w
+// height -> h
+// title -> title
+alert(title); // Menu
+alert(w); // 100
+alert(h); // 200
+
+> For potentially missing properties we can set default values using "=" , like this:
+let options = {
+title: "Menu"
+};
+let {width = 100, height = 200, title} = options;
+alert(title); // Menu
+alert(width); // 100
+alert(height); // 200
+
+
+The code below asks for width, but not the title.
+let options = {
+title: "Menu"
+};
+let {width = prompt("width?"), title = prompt("title?")} = options;
+alert(title); // Menu
+alert(width); // (whatever the result of prompt is)
+
+
+
+let title, width, height;
+// error in this line
+{title, width, height} = {title: "Menu", width: 200, height: 100};
+
+let title, width, height;
+// okay now
+({title, width, height}) = {title: "Menu", width: 200, height: 100};
+alert( title ); // Menu
+
+==================
+* JSON.stringify to convert objects into JSON.
+* JSON.parse to convert JSON back into an object.
+
+ let room = {
+number: 23
+};
+let meetup = {
+title: "Conference",
+date: new Date(Date.UTC(2017, 0, 1)),
+room
+};
+alert( JSON.stringify(meetup) );
+/*
+{
+"title":"Conference",
+"date":"2017-01-01T00:00:00.000Z", // (1)
+"room": {"number":23} // (2)
+}
+*/
+
+==========================================
+# Property flags
+> Object properties, besides a value , have three special attributes (so-called “flags”):
+* writable – if true , can be changed, otherwise it’s read-only.
+* enumerable – if true , then listed in loops, otherwise not listed.
+* configurable – if true , the property can be deleted and these attributes can be
+modified, otherwise not.
+
+# Object.getOwnPropertyDescriptor(obj, propertyName);
+The method Object.getOwnPropertyDescriptor  allows to query the full information about a
+property.
+
+let user = {
+name: "John"
+};
+let descriptor = Object.getOwnPropertyDescriptor(user, 'name');
+alert( JSON.stringify(descriptor, null, 2 ) );
+/* property descriptor:
+{
+"value": "John",
+"writable": true,
+"enumerable": true,
+"configurable": true
+}
+*/
+
+# To change the flags, we can use Object.defineProperty 
+Object.defineProperty(obj, propertyName, descriptor)
+# Read-only : 
+Let’s make user.name read-only by changing writable flag:
+let user = {
+name: "John"
+};
+Object.defineProperty(user, "name", {
+writable: false
+});
+user.name = "Pete"; // Error: Cannot assign to read only property 'name'...
+
+*Read-only
+let user = { };
+Object.defineProperty(user, "name", {
+value: "Pete",
+// for new properties need to explicitly list what's true
+enumerable: true,
+configurable: true
+});
+alert(user.name); // Pete
+user.name = "Alice"; // Error
+
+
+* Non-enumerable
+let user = {
+name: "John",
+toString() {
+return this.name;
+}
+};
+Object.defineProperty(user, "toString", {
+enumerable: false
+});
+// Now our toString disappears:
+for (let key in user) alert(key); // name
+
+
+
+* Non-configurable
+A non-configurable property can not be deleted or altered with defineProperty .
+
+--
+* Object.defineProperties
+> There’s a method Object.defineProperties(obj, descriptors)  that allows to define many
+> properties at once
+Object.defineProperties(obj, {
+prop1: descriptor1,
+prop2: descriptor2
+// ...
+});
+
+Object.defineProperties(user, {
+name: { value: "John", writable: false },
+surname: { value: "Smith", writable: false },
+// ...
+});
+
+* Object.getOwnPropertyDescriptors
+To get all property descriptors at once, we can use the method
+
+console.table(JSON.stringify(Object.getOwnPropertyDescriptors(user)))
+{"name":{"value":"Pete","writable":false,"enumerable":false,"configurable":false},"age":{"value":26,"writable":false,"enumerable":false,"configurable":false},"first":{"value":"ali","writable":true,"enumerable":true,"configurable":true},"m":{"value":"mido","writable":false,"enumerable":false,"configurable":false}}
+
+* Object.preventExtensions(obj) :
+> Forbids the addition of new properties to the object
+
+* Object.seal(obj) :
+> Forbids adding/removing of properties. Sets configurable: false for all existing
+> properties.
+
+* Object.freeze(obj) :
+> Forbids adding/removing/changing of properties. Sets configurable: false,
+> writable: false for all existing properties. And also there are tests for them:
+
+* Object.isExtensible(obj) :
+> Returns false if adding properties is forbidden, otherwise true .
+
+* Object.isSealed(obj) :
+> Returns true if adding/removing properties is forbidden, and all existing properties have
+> configurable: false .
+
+* Object.isFrozen(obj) :
+> Returns true if adding/removing/changing properties is forbidden, and all current properties
+are configurable: false, writable: false .
+
+# Getters and setters
+> Accessor properties are represented by “getter” and “setter” methods. In an object literal they
+> are denoted by get and set :
+let obj = {
+get propName() {
+// getter, the code executed on getting obj.propName
+},
+set propName(value) {
+// setter, the code executed on setting obj.propName = value
+}
+
+let user = {
+name: "John",
+surname: "Smith",
+get fullName() {
+return `${this.name} ${this.surname}`;
+},
+set fullName(value) {
+[this.name, this.surname] = value.split(" ");
+}
+};
+// set fullName is executed with the given value.
+user.fullName = "Alice Cooper";
+alert(user.name); // Alice
+alert(user.surname); // Cooper
+
+# Accessor properties are only accessible with get/set
+> Once a property is defined with get prop() or set prop() , it’s an accessor property,
+> not a data property any more.
+> If there’s a getter – we can read object.prop , otherwise we can’t.
+> If there’s a setter – we can set object.prop=... , otherwise we can’t.
+## And in either case we can’t delete an accessor property.
+
+let user = {
+get name() {
+return this._name;
+},
+set name(value) {
+if (value.length < 4) {
+alert("Name is too short, need at least 4 characters");
+return;
+}
+this._name = value;
+}
+};
+user.name = "Pete";
+alert(user.name); // Pete
+user.name = ""; // Name is too short...
+=====================================================
+# PROTOTYPE : 
+Please note that __proto__ is not the same as [[Prototype]] . That’s a getter/setter
+for it.
+It exists for historical reasons, in modern language it is replaced with functions
+Object.getPrototypeOf/Object.setPrototypeOf that also get/set the prototype.
+We’ll study the reasons for that and these functions later.
+By the specification, __proto__ must only be supported by browsers, but in fact all
+environments including server-side support it. For now, as __proto__ notation is a little
+bit more intuitively obvious, we’ll use it in the examples.
+
+
+
+# If we look for a property in rabbit , and it’s missing, JavaScript automatically takes it from
+animal .
+
+let animal = {
+eats: true
+};
+let rabbit = {
+jumps: true
+};
+rabbit.__proto__ = animal; // (*)
+// we can find both properties in rabbit now:
+alert( rabbit.eats ); // true (**)
+alert( rabbit.jumps ); // true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
