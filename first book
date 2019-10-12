@@ -819,6 +819,271 @@ rabbit.__proto__ = animal; // (*)
 alert( rabbit.eats ); // true (**)
 alert( rabbit.jumps ); // true
 
+# prototype : -
+> In JavaScript, objects have a special hidden property [[Prototype]] (as named in the
+> specification), that is either null or references another object. That object is called “a
+> prototype”:
+
+### Please note that __proto__ is not the same as [[Prototype]] . That’s a getter/setter
+### for it.
+
+let animal = {
+eats: true
+};
+let rabbit = {
+jumps: true
+};
+rabbit.__proto__ = animal; // (*)
+// we can find both properties in rabbit now:
+alert( rabbit.eats ); // true (**)
+alert( rabbit.jumps ); // true
+
+
+Writing doesn’t use prototype
+
+et animal = {
+eats: true,
+walk() {
+/* this method won't be used by rabbit */
+}
+};
+let rabbit = {
+__proto__: animal
+};
+rabbit.walk = function() {
+alert("Rabbit! Bounce-bounce!");
+};
+rabbit.walk(); // Rabbit! Bounce-bounce!
+
+
+this is not affected by prototypes at all.
+
+
+-----
+# constructor :
+
+let animal = {
+eats: true
+};
+function Rabbit(name) {
+this.name = name;
+}
+Rabbit.prototype = animal;
+let rabbit = new Rabbit("White Rabbit"); // rabbit.__proto__ == animal
+alert( rabbit.eats ); // true
+
+===================================================
+
+# Changing native prototypes
+
+String.prototype.show = function() {
+alert(this);
+};
+"BOOM!".show(); // BOOM!
+
+## Important:
+Prototypes are global, so it’s easy to get a conflict. If two libraries add a method
+String.prototype.show , then one of them will be overwriting the other.
+So, generally, modifying a native prototype is considered a bad idea.
+
+
+if (!String.prototype.repeat) { // if there's no such method
+// add it to the prototype
+String.prototype.repeat = function(n) {
+// repeat the string n times
+// actually, the code should be a little bit more complex than that
+// (the full algorithm is in the specification)
+// but even an imperfect polyfill is often considered good enough
+return new Array(n + 1).join(this);
+};
+}
+alert( "La".repeat(3) ); // LaLaLa
+
+
+
+
+
+
+# Borrowing from prototypes : 
+> In the chapter Decorators and forwarding, call/apply we talked about method borrowing.
+> That’s when we take a method from one object and copy it into another.
+> Some methods of native prototypes are often borrowed
+
+let obj = {
+0: "Hello",
+1: "world!",
+length: 2,
+};
+obj.join = Array.prototype.join;
+alert( obj.join(',') ); // Hello,world!
+
+
+# Modern methods to setup and directly access the prototype are:
+
+* Object.create(proto[, descriptors])  – creates an empty object with given proto as
+[[Prototype]] (can be null ) and optional property descriptors.
+
+* Object.getPrototypeOf(obj)  – returns the [[Prototype]] of obj (same as
+__proto__ getter).
+
+* Object.setPrototypeOf(obj, proto)  – sets the [[Prototype]] of obj to proto (same
+as __proto__ setter).
+
+* Object.keys(obj)  / Object.values(obj)  / Object.entries(obj)  – returns an array of
+enumerable own string property names/values/key-value pairs.
+
+* Object.getOwnPropertySymbols(obj)  – returns an array of all own symbolic keys.
+
+* Object.getOwnPropertyNames(obj)  – returns an array of all own string keys.
+
+* Reflect.ownKeys(obj)  – returns an array of all own keys.
+
+* obj.hasOwnProperty(key)  : it returns true if obj has its own (not inherited) key named
+key .
+
+==============================
+CLASS : -
+
+class User {
+constructor(name) { this.name = name; }
+sayHi() { alert(this.name); }
+}
+// class is a function
+alert(typeof User); // function
+// ...or, more precisely, the constructor method
+alert(User === User.prototype.constructor); // true
+// The methods are in User.prototype, e.g:
+alert(User.prototype.sayHi); // alert(this.name);
+// there are exactly two methods in the prototype
+alert(Object.getOwnPropertyNames(User.prototype)); // constructor, sayHi
+
+
+// rewriting class User in pure functions
+// 1. Create constructor function
+function User(name) {
+this.name = name;
+}
+// any function prototype has constructor property by default,
+// so we don't need to create it
+// 2. Add the method to prototype
+User.prototype.sayHi = function() {
+alert(this.name);
+};
+// Usage:
+let user = new User("John");
+user.sayHi();
+
+# Class Expression
+Just like functions, classes can be defined inside another expression, passed around, returned,
+assigned etc.
+
+let User = class {
+sayHi() {
+alert("Hello");
+}
+};
+
+
+====
+# EXTEND CALSS
+
+class Animal {
+constructor(name) {
+this.speed = 0;
+this.name = name;
+}
+run(speed) {
+this.speed += speed;
+alert(`${this.name} runs with speed ${this.speed}.`);
+}
+stop() {
+this.speed = 0;
+alert(`${this.name} stopped.`);
+}
+}
+// Inherit from Animal by specifying "extends Animal"
+class Rabbit extends Animal {
+hide() {
+alert(`${this.name} hides!`);
+}
+}
+let rabbit = new Rabbit("White Rabbit");
+rabbit.run(5); // White Rabbit runs with speed 5.
+rabbit.hide(); // White Rabbit hides!
+
+
+# OVERRIDE :
+we can overide methoed in javascript
+
+# super :
+is used to call the parent class
+like 
+Work(){
+super.work();
+this.job()
+}
+
+class Animal {
+constructor(name) {
+this.speed = 0;
+this.name = name;
+}
+run(speed) {
+this.speed += speed;
+alert(`${this.name} runs with speed ${this.speed}.`);
+}
+stop() {
+this.speed = 0;
+alert(`${this.name} stopped.`);
+}
+}
+class Rabbit extends Animal {
+hide() {
+alert(`${this.name} hides!`);
+}
+stop() {
+super.stop(); // call parent stop
+this.hide(); // and then hide
+}
+}
+let rabbit = new Rabbit("White Rabbit");
+rabbit.run(5); // White Rabbit runs with speed 5.
+rabbit.stop(); // White Rabbit stopped. White rabbit hides!
+
+
+# OVERRIDE CONSTRUCTOR
+
+class Rabbit extends Animal {
+// generated for extending classes without own constructors
+constructor(...args) {
+super(...args);
+}
+
+# Static properties and methods
+> We can also assign a method to the class function, not to its "prototype" . Such methods
+> are called static.
+class User {
+static staticMethod() {
+alert(this === User);
+}
+}
+User.staticMethod(); // true
+
+
+
+
+class Article {
+static publisher = "Ilya Kantor";
+}
+alert( Article.publisher ); // Ilya Kantor
+
+
+
+
+
+
+
+
 
 
 
