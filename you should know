@@ -72,9 +72,12 @@ function b(){
  this stored in heap
  this type of memory take longer to access and bigger information
   ============================================================= 
-  
-  
-  
+  event loop : (callback queue)
+  wait untill stack is clear then push fn 
+  1 - stack
+  2 - webapis:(ajax - settime out - dom
+  3 - task queue
+  4- stack
   
   
   
