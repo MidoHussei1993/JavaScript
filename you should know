@@ -1,0 +1,83 @@
+CALL STACK : 
+like todo list of function invocations
+Last in , first out
+for instance 
+function a(){
+  b()
+  }
+            
+function b(){
+  b()
+  }
+  
+  stack : the way the stack work 
+  function add(a,b){ // this is function declearation not add to stack
+    return a + b ;
+    }
+ var res = add(3,7) // heer we call function 
+ // here we stack frame in our stack
+ 
+ 
+ THE FIRST FUNCTION IN STACK IS THE MAIN FUNCTION
+ 
+ IN CHROME THE STACK IS FULL BY 60000 FRAME
+ 
+ STACK DEFINITION:
+ an ordered set of stack frames
+ most resently invoked function in on the top stack
+ the bottom of the stack is the first function invoked 
+ the stack is processed from top to bottom
+  ============================================================
+  THE THREAD OF EXECUTION :
+  is go line by line 
+  for instance
+  const num = 1
+  function multiplyby2(inputnumber){
+    const result = firstnumber * 2 
+    return ressult ;
+     }
+  const name = 'will';
+  output = multiply(4);
+  
+  G L O B A L   M E M O Y :
+ 1 -  name : 3 // constant on num contain value 3
+ 2 -  multiply2 : [f] //  save function in the memory and called by maltiply2 
+ we never go inside function untill we call it
+ 3 - name : 'will' // constant of name contain value of 'will'
+ 4 - output : undifined
+  now we leave the thread
+ 4 - output : local execution context  :
+   inputnumber(parameter) :  here we leave place holder and when the function invoke
+   make sure fill this inputnumber placeholder blank with acutal value 4
+   result : 8 
+   
+ 4 - output : return the result value to the global variable and out from local execution to the 
+              global execution context by the keyword [ return ]
+  
+  
+  
+  
+ global execution context :
+ - thread of execution (parsing and ececuting the code line after line)
+ - live memory of variables with data (known as a global variable enviroment)
+  
+  
+  we can think it is like big function holed th hole application
+  global()
+ ======================================================================
+ primitive type : 
+ copy by value stored in stack of data
+ this type of memory is very quick very limtid information
+ refrence type : object and array
+ this stored in heap
+ this type of memory take longer to access and bigger information
+  ============================================================= 
+  
+  
+  
+  
+  
+  
+  
+  
+   
