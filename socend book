@@ -1,3 +1,6 @@
+location.href = "https://wikipedia.org"; // redirect the browser to
+
+
 # There’s a “root” object called window . It has two roles:
 
 > 1. First, it is a global object for JavaScript code, as described in the chapter
@@ -30,7 +33,15 @@ window.sayHi();
 > All these objects are accessible using JavaScript.
 
 
-
+===================
+There are 12 node types  . In practice we usually work with 4 of them:
+1. document – the “entry point” into DOM.
+2. element nodes – HTML-tags, the tree building blocks.
+3. text nodes – contain text.
+4. comments – sometimes we can put the information there, it won’t be shown,
+but JS can read it from the DOM.
+================
+Children: childNodes, firstChild, lastChild
 
 
 
