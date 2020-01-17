@@ -1,0 +1,4 @@
+often use in run run time if you forget to add some property
+the prototype help you in that 
+bucouse the combiler search in the object if didn`t find the property
+then will go and then search in prototype
