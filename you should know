@@ -58,7 +58,7 @@ function b(){
   
   
  global execution context :
- - thread of execution (parsing and ececuting the code line after line)
+ - thread of execution (parsing and executing the code line after line)
  - live memory of variables with data (known as a global variable enviroment)
   
   
